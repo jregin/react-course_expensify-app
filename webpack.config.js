@@ -1,5 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require("Html-webpack-plugin");
+const { join } = require('path');
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
@@ -8,8 +10,10 @@ module.exports = (env, argv) => {
   return {
     entry: './src/app.js',
     output: {
-      path: path.join(__dirname, 'public'),
-      filename: 'bundle.js'
+      path: path.join(__dirname, 'public', 'dist'),
+      filename: 'bundle.js',
+      publicPath: '/dist',
+      clean: true
     },
     module: {
       rules: [{
@@ -43,15 +47,20 @@ module.exports = (env, argv) => {
     plugins: [
       new MiniCssExtractPlugin({
         filename: 'styles.css'
+      }),
+      new HtmlWebpackPlugin({
+        title: 'Expensify HOT app',
+        template: join(__dirname, 'public', 'index.html')
       })
     ],
     devtool: isProduction ? 'source-map' : 'inline-cheap-module-source-map',
     devServer: {
       static: {
-        directory: path.join(__dirname, 'public'),
-        watch: true,
+        directory: path.join(__dirname, 'public')
       },
-      historyApiFallback: true
+      historyApiFallback: true,
+      liveReload: false,
+      hot: true
     },
   };
 };
