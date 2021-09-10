@@ -1,9 +1,5 @@
-// import firebase from 'firebase/app';
-// import 'firebase/auth';
-// import 'firebase/database';
+import firebase from 'firebase';
 
-import { initializeApp } from "firebase/app";
-import { getFirebase } from 'firebase/firebase-database';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDCY2BhNQmxLiW40Oyid2ppTdfF0jeTGbs",
@@ -15,14 +11,12 @@ const firebaseConfig = {
   appId: "1:213932203582:web:f81b91cfc39fbeb3edbb6f"
 };
 
-const app = initializeApp(firebaseConfig)
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
-// Initialize Firebase v8
-// firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-const database = getFirebase(app);
-
-database().ref().set({
+db.ref().set({
   name: 'Jesper Regin',
   age: 34,
   isSingle: false,
@@ -32,5 +26,10 @@ database().ref().set({
   }
 });
 
-database.ref('age').set(49);
-database.ref('location/city').set('Bagsværd');
+db.ref('age').set(49);
+db.ref('location/city').set('Bagsværd');
+
+db.ref('attributes').set({
+  height: 179,
+  weight: 82
+});
