@@ -26,7 +26,13 @@ database.ref().on('value', (snapshot) => {
   const val = snapshot.val();
   // console.log(snapshot.val());
   console.log(`${val.name} is a ${val.job.title} at ${val.job.company}`);
-})
+});
+
+const onValueChange = database.ref().on('value', (snapshot) => {
+  console.log(snapshot.val());
+}, (e) => {
+  console.log('Error fetching data', e);
+});
 
 database.ref('location/city')
   .once('value')
@@ -70,17 +76,17 @@ database.ref().set({
 //     console.log('Did not remove data', e);
 //   });
 
-// setTimeout(() => {
-//   database.ref('age').set(34);
-//   database.ref('location/city').set('København');
-// }, 5000);
+setTimeout(() => {
+  database.ref('age').set(34);
+  database.ref('location/city').set('København');
+}, 5000);
 
-// //Unsubscribe not working ...
-// setTimeout(() => {
-//   database.ref().off();
-// }, 7500);
+//Unsubscribe
+setTimeout(() => {
+  database.ref().off(onValueChange);
+}, 7500);
 
-// setTimeout(() => {
-//   database.ref('age').set(50);
-//   database.ref('location/city').set('Gladsaxe');
-// }, 10000);
+setTimeout(() => {
+  database.ref('age').set(50);
+  database.ref('location/city').set('Gladsaxe');
+}, 10000);
