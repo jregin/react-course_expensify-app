@@ -21,19 +21,15 @@ firebase.initializeApp(firebaseConfig);
 // const database = firebase.database();
 const db = firebase.database();
 
-export { firebase, db as default };
-
-// ----------------------
-
 // // child_removed v8
 // db.ref('expenses').on('child_removed', (snapshot) => {
 //   console.log(snapshot.key, snapshot.val());
 // });
 
-// // child_removed v9 modular
-// onChildRemoved(ref(db, 'expenses'), (snapshot) => {
-//   console.log(snapshot.key, snapshot.val());
-// });
+// child_removed v9 modular
+onChildRemoved(ref(db, 'expenses'), (snapshot) => {
+  console.log(snapshot.key, snapshot.val());
+});
 
 // // child_changed
 // db.ref('expenses').on('child_changed', (snapshot) => {
@@ -41,9 +37,9 @@ export { firebase, db as default };
 // });
 
 // // child_changed v9 modular
-// onChildChanged(ref(db, 'expenses'), (snapshot) => {
-//   console.log(snapshot.key, snapshot.val());
-// });
+onChildChanged(ref(db, 'expenses'), (snapshot) => {
+  console.log(snapshot.key, snapshot.val());
+});
 
 // // child_added - also called by existing child nodes!
 // db.ref('expenses').on('child_added', (snapshot) => {
@@ -51,9 +47,9 @@ export { firebase, db as default };
 // });
 
 // // child_added v9 modular
-// onChildAdded(ref(db, 'expenses'), (snapshot) => {
-//   console.log(snapshot.key, snapshot.val());
-// });
+onChildAdded(ref(db, 'expenses'), (snapshot) => {
+  console.log(snapshot.key, snapshot.val());
+});
 
 // Challenge 2
 // const onExpensesChange = db.ref('expenses').on('value', (snapshot) => {
@@ -70,18 +66,18 @@ export { firebase, db as default };
 // });
 
 // Challenge 2 - v9 modular
-// onValue(ref(db, 'expenses'), (snapshot) => {
-//   const expenses = [];
-//   snapshot.forEach((childSnapshot) => {
-//     expenses.push({
-//       id: childSnapshot.key,
-//       ...childSnapshot.val()
-//     })
-//   });
-//   console.log(expenses);
-// }, (e) => {
-//   console.log('Error fetching data', e);
-// });
+onValue(ref(db, 'expenses'), (snapshot) => {
+  const expenses = [];
+  snapshot.forEach((childSnapshot) => {
+    expenses.push({
+      id: childSnapshot.key,
+      ...childSnapshot.val()
+    })
+  });
+  console.log(expenses);
+}, (e) => {
+  console.log('Error fetching data', e);
+});
 
 // db.ref('expenses').on('value', (snapshot) => {
 //   const expenses = [];
