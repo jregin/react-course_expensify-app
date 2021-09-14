@@ -1,7 +1,7 @@
 // Connect to Firebase v9 - modular
 
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, get, query, child, set, update, remove, onValue, onValueChange, off } from 'firebase/database';
+import { getDatabase, ref, push, get, query, child, set, update, remove, onValue, onValueChange, off } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDCY2BhNQmxLiW40Oyid2ppTdfF0jeTGbs",
