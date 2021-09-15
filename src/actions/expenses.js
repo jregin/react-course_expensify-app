@@ -50,6 +50,15 @@ export const removeExpense = ({ id } = {}) => ({
   id
 });
 
+// startRemoveExpense
+export const startRemoveExpense = ( { id } = {}) => {
+  return (dispatch) => {
+    return db.ref(`expenses/${id}`).remove().then(() => {
+      dispatch(removeExpense({ id }));
+    });
+  };
+};
+
 // EDIT_EXPENSE
 export const editExpense = (id, updates) => ({
   type: 'EDIT_EXPENSE',
@@ -63,9 +72,7 @@ export const setExpenses = (expenses) => ({
   expenses
 });
 
-// export const startSetExpenses;
-
-// v8 dot
+// startSetExpenses - v8 dot
 export const startSetExpenses = () => {
   return (dispatch) => {
     return db.ref('expenses').once('value').then((snapshot) => {
@@ -80,20 +87,6 @@ export const startSetExpenses = () => {
     });
   };
 };
-
-// db.ref('expenses').on('value', (snapshot) => {
-//   const expenses = [];
-//   snapshot.forEach((childSnapshot) => {
-//     expenses.push({
-//       id: childSnapshot.key,
-//       ...childSnapshot.val()
-//     })
-//   });
-//   console.log(expenses);
-// }, (e) => {
-//   console.log('Error fetching data', e);
-// });
-
 
 // // v9 modular
 // export const startAddExpense = (expenseData = {}) => {
