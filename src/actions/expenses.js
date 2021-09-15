@@ -9,34 +9,16 @@ export const addExpense = (expense) => ({
 });
 
 // v8 dot
-// export const startAddExpense = (expenseData = {}) => {
-//   return (dispatch) => {
-//     const {
-//       description = '',
-//       note = '',
-//       amount = 0,
-//       createdAt = 0
-//     } = expenseData;
-//     const expense = { description, note, amount, createdAt };
-//     db.ref('expenses').push(expense).then((ref) => {
-//       dispatch(addExpense({
-//         id: ref.key,
-//         ...expense
-//       }));
-//     });
-//   };
-// };
-// // v9 modular
 export const startAddExpense = (expenseData = {}) => {
   return (dispatch) => {
     const {
-      description = '', 
-    note = '', 
-    amount = 0, 
-    createdAt = 0
+      description = '',
+      note = '',
+      amount = 0,
+      createdAt = 0
     } = expenseData;
     const expense = { description, note, amount, createdAt };
-    return push(ref(db, 'expenses'), (expense)).then((ref) => {
+    return db.ref('expenses').push(expense).then((ref) => {
       dispatch(addExpense({
         id: ref.key,
         ...expense
@@ -44,6 +26,23 @@ export const startAddExpense = (expenseData = {}) => {
     });
   };
 };
+// // v9 modular
+// export const startAddExpense = (expenseData = {}) => {
+//   return (dispatch) => {
+//     const {
+//       description = '', 
+//     note = '', 
+//     amount = 0, 
+//     createdAt = 0
+//     } = expenseData;
+//     const expense = { description, note, amount, createdAt };
+//     const ref = push(ref(db, 'expenses'), (expense));
+//     dispatch(addExpense({
+//       id: ref.key,
+//       ...expense
+//     }));
+//   };
+// };
 
 // REMOVE_EXPENSE
 export const removeExpense = ({ id } = {}) => ({
@@ -57,3 +56,60 @@ export const editExpense = (id, updates) => ({
   id,
   updates
 });
+
+// SET_EXPENSES
+export const setExpenses = (expenses) => ({
+  type: 'SET_EXPENSES',
+  expenses
+});
+
+// export const startSetExpenses;
+
+// v8 dot
+export const startSetExpenses = () => {
+  return (dispatch) => {
+    return db.ref('expenses').once('value').then((snapshot) => {
+      const expenses = [];
+      snapshot.forEach((childSnapshot) => {
+        expenses.push({
+          id: childSnapshot.key,
+          ...childSnapshot.val()
+        });
+      });
+      dispatch(setExpenses(expenses));
+    });
+  };
+};
+
+// db.ref('expenses').on('value', (snapshot) => {
+//   const expenses = [];
+//   snapshot.forEach((childSnapshot) => {
+//     expenses.push({
+//       id: childSnapshot.key,
+//       ...childSnapshot.val()
+//     })
+//   });
+//   console.log(expenses);
+// }, (e) => {
+//   console.log('Error fetching data', e);
+// });
+
+
+// // v9 modular
+// export const startAddExpense = (expenseData = {}) => {
+//   return (dispatch) => {
+//     const {
+//       description = '', 
+//     note = '', 
+//     amount = 0, 
+//     createdAt = 0
+//     } = expenseData;
+//     const expense = { description, note, amount, createdAt };
+//     return push(ref(db, 'expenses'), (expense)).then((ref) => {
+//       dispatch(addExpense({
+//         id: ref.key,
+//         ...expense
+//       }));
+//     });
+//   };
+// };

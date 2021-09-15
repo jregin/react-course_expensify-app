@@ -2,7 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require("Html-webpack-plugin");
 const { join } = require('path');
-const { webpack } = require('webpack');
+const webpack = require('webpack');
 
 // const publicPath = process.env.PUBLIC_URL || '/';
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -15,6 +15,7 @@ require('dotenv').config({ path: '.env.test'});
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
+  // const isProduction = env === 'production';
 
   console.log('env', env);
   return {
