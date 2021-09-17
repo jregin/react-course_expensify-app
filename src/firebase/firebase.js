@@ -2,6 +2,8 @@
 
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
+import 'firebase/compat/auth';
+
 // import { initializeApp } from "firebase/app";
 import { getDatabase, ref, push, get, query, child, onChildAdded, childSnapshot, onChildChanged, onChildRemoved, set, update, remove, onValue, onValueChange, off } from 'firebase/database';
 
@@ -18,10 +20,15 @@ const firebaseConfig = {
 // Initialize Firebase v9 Compat
 firebase.initializeApp(firebaseConfig);
 
+
+
+
+
 // const database = firebase.database();
 const db = firebase.database();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-export { firebase, db as default };
+export { firebase, googleAuthProvider, db as default };
 
 // ----------------------
 
