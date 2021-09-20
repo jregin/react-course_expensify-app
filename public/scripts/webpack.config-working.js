@@ -25,7 +25,6 @@ module.exports = (env, argv) => {
       publicPath: '/dist',
       clean: true
     },
-    target: ['web', 'es5'],
     module: {
       rules: [{
         test: /\.js$/,
@@ -33,15 +32,7 @@ module.exports = (env, argv) => {
         use: {
           loader: 'babel-loader',
           options: {
-            // targets: 'defaults',
-            presets: [
-              // ['@babel/preset-env', { 'useBuiltIns': 'entry' }],
-              ['@babel/preset-env', 
-                {
-                  'useBuiltIns': 'entry',
-                  'corejs': '^3.18.0'
-                }],
-              '@babel/preset-react'],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
             plugins: ["@babel/plugin-proposal-class-properties", "@babel/plugin-proposal-object-rest-spread", "@babel/plugin-transform-modules-commonjs"]
           }
         }

@@ -1,0 +1,22 @@
+.button {
+  align-items: center;
+  background: $blue;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  display: inline-block;
+  font-size: $font-size-large;
+  font-weight: 300;
+  line-height: 1;
+  padding: $s-size $m-size;
+  text-align: center;
+  text-decoration: none;
+}
+
+.button--link {
+  background: none;
+}
+
+.button--secondary {
+  background: #888888;
+}
